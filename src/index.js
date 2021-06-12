@@ -30,7 +30,8 @@ document.querySelector('form').addEventListener('submit', () => {
 });
 
 router.get('/cowsay', (ctx, next) => {
-  const setting = settings[ctx.state.user] || {};
+  const setting = settings[ctx.state.user];
+  const color = setting?.color || '#000000';
 
   let cowsay = '';
   if (ctx.request.query.say) {
@@ -40,7 +41,7 @@ router.get('/cowsay', (ctx, next) => {
 
   ctx.body = `
 <form action="/setting/color" method="POST">
-  <input type="color" name="value" value="${setting.color || '#000000'}">
+  <input type="color" name="value" value="${color}">
   <input type="submit" value="Change Color">
 </form>
 
@@ -49,14 +50,17 @@ router.get('/cowsay', (ctx, next) => {
   <input type="submit" value="Say">
 </form>
 
-<pre style="color: ${setting.color}">
+<pre style="color: ${color}">
 ${cowsay}
 </pre>
 `;
 });
 
 router.post('/setting/:name', (ctx, next) => {
-  const setting = settings[ctx.state.user]
+  if (!settings[ctx.state.user]) {
+    settings[ctx.state.user] = {};
+  }
+  const setting = settings[ctx.state.user];
   setting[ctx.params.name] = ctx.request.body.value;
   ctx.redirect('/cowsay');
 });
