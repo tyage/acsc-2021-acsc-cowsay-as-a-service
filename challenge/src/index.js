@@ -1,5 +1,6 @@
 import Koa from 'koa';
 import Router from '@koa/router';
+import auth from 'koa-basic-auth';
 import bodyParser from 'koa-bodyparser';
 import child_process from 'child_process';
 
@@ -7,6 +8,14 @@ const settings = {};
 
 const app = new Koa();
 const router = new Router();
+
+// basic auth
+if (process.env.CS_USERNAME && process.env.CS_PASSWORD) {
+  app.use(auth({
+    name: process.env.CS_USERNAME,
+    pass: process.env.CS_PASSWORD
+  }))
+}
 
 app.use(async (ctx, next) => {
   ctx.state.user = ctx.cookies.get('username');
