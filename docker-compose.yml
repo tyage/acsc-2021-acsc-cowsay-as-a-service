@@ -1,0 +1,16 @@
+version: '3'
+services:
+  spawner:
+    image: ghcr.io/tyage/container-spawner:latest
+    env_file:
+      - .env-spawner
+    ports:
+      - "5000:5000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock     
+  cleaner:
+    image: ghcr.io/tyage/container-spawner-cleaner:latest
+    env_file:
+      - .env-cleaner
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock     

@@ -20,6 +20,5 @@ SPAWNER_TIME_LIMIT=600
 command
 ```sh
 $ docker build -t acsc-cowsay ./challenge
-$ docker run --rm -v /var/run/docker.sock:/var/run/docker.sock --env-file=.env-spawner -p 5000:5000 ghcr.io/tyage/container-spawner:latest
-$ docker run --rm -v /var/run/docker.sock:/var/run/docker.sock --env-file=.env-cleaner ghcr.io/tyage/container-spawner-cleaner:latest
+$ docker compose up
 ```
