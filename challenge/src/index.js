@@ -6,6 +6,14 @@ import child_process from 'child_process';
 
 const settings = {};
 
+const style = `<style>
+body { padding: 2rem; }
+.form input[type=text] { padding: .5rem 1rem; font-size: 1rem; display: block; margin-bottom: 1rem; }
+.form input[type=submit] { display: block; margin-bottom: 1rem; color: #fff; background-color: #000; padding: .5rem 1rem; font-size: 1rem; border: none; }
+.color-setting { margin-bottom: 1rem; }
+.cowsay { font-size: 2rem; background: #beead6; padding: 0.5rem 1rem; }
+</style>`;
+
 const app = new Koa();
 const router = new Router();
 
@@ -24,7 +32,10 @@ app.use(async (ctx, next) => {
 
 router.get('/', (ctx, next) => {
   ctx.body = `
-<form action="/cowsay" method="GET">
+${style}
+<h1>Welcome to Cowsay as a Service</h1>
+<p>Before start the service, please enter your name.</p>
+<form action="/cowsay" method="GET" class="form">
   <input type="text" name="user" placeholder="Username">
   <input type="submit" value="Login">
 </form>
@@ -49,17 +60,23 @@ router.get('/cowsay', (ctx, next) => {
   }
 
   ctx.body = `
-<form action="/setting/color" method="POST">
-  <input type="color" name="value" value="${color}">
-  <input type="submit" value="Change Color">
-</form>
+${style}
+<h1>Cowsay as a Service</h1>
 
-<form action="/cowsay" method="GET">
+<details class="color-setting">
+  <summary>Color Preferences</summary>
+  <form action="/setting/color" method="POST">
+    <input type="color" name="value" value="${color}">
+    <input type="submit" value="Change Color">
+  </form>
+</details>
+
+<form action="/cowsay" method="GET" class="form">
   <input type="text" name="say" placeholder="hello">
   <input type="submit" value="Say">
 </form>
 
-<pre style="color: ${color}">
+<pre style="color: ${color}" class="cowsay">
 ${cowsay}
 </pre>
 `;
