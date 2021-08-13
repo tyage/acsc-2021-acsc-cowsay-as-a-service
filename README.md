@@ -1,4 +1,4 @@
-# COWSAY as a Service
+# Cowsay as a Service
 
 ## Deployment
 

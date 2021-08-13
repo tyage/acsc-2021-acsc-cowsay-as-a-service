@@ -1,4 +1,4 @@
-# acsc-cowsay
+# Cowsay as a Service
 
 ```bash
 docker build . -t acsc-cowsay
