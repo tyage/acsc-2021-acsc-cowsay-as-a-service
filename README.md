@@ -1,4 +1,4 @@
-# How to run
+# Deployment
 
 .env-spawner
 ```
