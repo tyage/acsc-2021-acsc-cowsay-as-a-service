@@ -2,23 +2,23 @@
 
 ## Deployment
 
-.env-spawner
-```
-SPAWNER_IMAGE_NAME=acsc-cowsay
-SPAWNER_TIME_LIMIT=600
-SPAWNER_CONTAINER_PORT=3000
-RECAPTCHA_PUBLIC_KEY=...
-RECAPTCHA_PRIVATE_KEY=...
-```
+Prevent containers to access metadata API
+ref: <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html>
 
-.env-cleaner
-```
-SPAWNER_IMAGE_NAME=acsc-cowsay
-SPAWNER_TIME_LIMIT=600
-```
-
-command
 ```sh
+$ sudo iptables --insert FORWARD 1 --in-interface docker+ --destination 169.254.169.254/32 --jump DROP
+$ sudo apt install iptables-persistent
+$ sudo netfilter-persistent save
+# when the server rebooted, docker service automatically re-order iptables. so we need reloading iptables manually.
+# maybe we need startup script...
+$ sudo netfilter-persistent reload
+```
+
+Before deployment, edit flag and `RECAPTCHA_PUBLIC_KEY` in `docker-compose.yml`.
+
+```
 $ docker build -t acsc-cowsay ./challenge
 $ docker compose up
 ```
+
+Open localhost:5000

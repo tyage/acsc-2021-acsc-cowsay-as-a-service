@@ -2,15 +2,21 @@ version: '3'
 services:
   spawner:
     image: ghcr.io/tyage/container-spawner:latest
-    env_file:
-      - .env-spawner
+    environment:
+      - SPAWNER_IMAGE_NAME=acsc-cowsay
+      - SPAWNER_TIME_LIMIT=600
+      - SPAWNER_CONTAINER_PORT=3000
+      - SPAWNER_CONTAINER_ARGS={"environment":{"FLAG":"ACSC{.....}"}}
+      - RECAPTCHA_PUBLIC_KEY=...
+      - RECAPTCHA_PRIVATE_KEY=...
     ports:
       - "5000:5000"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock     
   cleaner:
     image: ghcr.io/tyage/container-spawner-cleaner:latest
-    env_file:
-      - .env-cleaner
+    environment:
+      - SPAWNER_IMAGE_NAME=acsc-cowsay
+      - SPAWNER_TIME_LIMIT=600
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock     
