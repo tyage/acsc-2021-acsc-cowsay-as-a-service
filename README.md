@@ -14,7 +14,7 @@ $ sudo netfilter-persistent save
 $ sudo netfilter-persistent reload
 ```
 
-Before deployment, edit flag and `RECAPTCHA_PUBLIC_KEY` in `docker-compose.yml`.
+Before deployment, edit flag, `RECAPTCHA_PUBLIC_KEY` and `RECAPTCHA_PRIVATE_KEY` in `docker-compose.yml`.
 
 ```
 $ docker build -t acsc-cowsay ./challenge
