@@ -4,6 +4,7 @@ services:
     image: ghcr.io/tyage/container-spawner:latest
     environment:
       - SPAWNER_IMAGE_NAME=acsc-cowsay
+      - SPAENER_HOSTNAME=caas.acsc.asia
       - SPAWNER_TIME_LIMIT=600
       - SPAWNER_CONTAINER_PORT=3000
       - SPAWNER_CONTAINER_ARGS={"environment":{"FLAG":"ACSC{this_is_fake_flag}"}}
